@@ -15,8 +15,14 @@ import ContactUs from './ContactUs';
 import AddGallery from './AddGallery';
 import Gallery from './Gallery';
 import ViewAddProduct from './ViewAddProduct';
+// import webfont from "webfontloader"
+import React from 'react';
 
-
+// React.useEffect(()=>{
+// webfont.load({
+//     google:
+// })
+// }, [])
 function App(){
 
 return(

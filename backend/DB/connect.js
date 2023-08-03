@@ -8,4 +8,4 @@ mongoose.connect(Db,{
 .then(()=> console.log('connection successful!'))
 .catch((err)=> console.log(err));
 
-module.exports=Db;
+module.exports=Db; 

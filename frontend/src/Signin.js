@@ -1,7 +1,7 @@
 import {NavLink } from 'react-router-dom';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import './style.css'
 
 function Signin() {
   const navigate = useNavigate();
@@ -54,13 +54,12 @@ function Signin() {
   return (
     <div className="container-sm">
       <div className="row">
-
+       <div className='col'>
         <form method="post" >
 
           <div className="mb-3">
             <label for="exampleInputtext" className="form-label" >First name</label>
             <input type="text" className="form-control" placeholder="Name" value={user.name} onChange={handleInputs} autoComplete='off' name="name" />
-
           </div>
 
 
@@ -93,6 +92,10 @@ function Signin() {
           <NavLink to="/Login" className="nav-link" >Sign in</NavLink>
 
         </form>
+        </div>
+        <div className='col-lg-4 mx-auto mt-5 '>
+          <img src='./images/img1.jpg' width="400px" height="300px" />
+        </div>
       </div>
     </div>
 

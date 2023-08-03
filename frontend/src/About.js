@@ -1,8 +1,30 @@
-import {BrowserRouter, NavLink} from 'react-router-dom';
+import { BrowserRouter, NavLink } from 'react-router-dom';
 
-function About(){
-return(
-    <div className="container px-4 py-5" id="hanging-icons">
+function About() {
+  return (
+
+
+    <>
+      {/* Featurate starts */}
+
+      <div className='container mt-5'>
+        <div className="row featurette mx-auto text-center">
+          <div className="col-md-7">
+            <h2 className="featurette-heading fw-normal lh-1">Why Choose BIGHAT</h2>
+            <span className="text-body-secondary">WHO WE ARE</span>
+          <p className="lead">"Transforming the Future of Farmers"
+
+
+
+            BigHaat is founded by a team of avid entrepreneurs in the year 2015. BigHaat is India’s leading Agri Digital Platform transforming the agriculture value chain from pre-harvest to post-harvest leveraging science, data and technology. It is impacting millions of farmers across the country by providing accessibility of extensive range of high quality inputs, end to end crop guidance and market linkages for various commodities, thus offering 360 degree solution to farmers with a very unique approach. </p>
+        </div>
+        <div className="col-md-5">
+          <img src="./images/doc.jpg" className='bd-placeholder-img bd-placeholder-img-lg feturette-img img-fluid mx-auto' width="400" height="400" alt="doc" preserveAspectRatio="xMidYMid slice" />
+        </div>
+      </div>
+    </div >
+      {/* Featurate Ends */ }
+      < div className = "container px-4 py-5" id = "hanging-icons" >
     <h2 className="pb-2 border-bottom">Hanging icons</h2>
     <div className="row g-4 py-5 row-cols-1 row-cols-lg-3">
       <div className="col d-flex align-items-start">
@@ -42,7 +64,8 @@ return(
         </div>
       </div>
     </div>
-  </div>
+  </div >
+  </>
 )
 }
 export default About;

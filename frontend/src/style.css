@@ -1,0 +1,67 @@
+.container {
+    display: flex;
+    margin: 3vmax auto;
+    padding: 2px;
+    width: 80vw;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 100%;
+}
+
+.productCard {
+    width: 14vmax;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: rgb(203, 104, 104);
+    margin: 2vmax;
+    transition: all o.5s;
+    padding-bottom: 0.5vmax;
+}
+
+.productCard:hover {
+    box-shadow: 0 0 5px rgb(203, 104, 104);
+    transform: translate(-1vmax);
+}
+
+@media screen and (max-width:600px) {
+    .productCard {
+        margin: 0px;
+        font-size: 1.5vmax;
+
+    }
+
+    .productCard:hover {
+        box-shadow: 0 0 5px rgb(203, 104, 104);
+        transform: translate(-1vmax);
+    }
+
+    .productCard>div {
+        display: block;
+        margin: 0 0.5vmax;
+        font: 300 1vmax;
+        border: 2px solid red;
+    }
+}
+
+/* HOME Page */
+.carousel .carousel-item {
+    height: 600px;
+  }
+  
+  .carousel-item img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-height: 600px;
+
+  }
+
+  /* Sign Up Page */
+
+   input.form-control{
+    margin-top: 5px;
+    max-width: 40vmax;
+
+    border: 1px solid aqua;
+  }
