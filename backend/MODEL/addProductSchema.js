@@ -13,7 +13,7 @@ const addProductSchema= new Schema({
         type: String
     },
   
-    prod:{
+    productType:{
         type: String
     },
     desc:{
@@ -21,8 +21,11 @@ const addProductSchema= new Schema({
     },
     price:{
         type: String
-    }
-
+    },
+    rating:{
+        type:Number,
+        default:0
+    }  
 });
 
 
