@@ -1,11 +1,15 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function Header() {
+  const amount = useSelector((state) => state.amount);
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
-          <NavLink to="/" className="navbar-brand">BIG HAAT</NavLink>
+          <NavLink to="/" className="navbar-brand">
+            BIG HAAT
+          </NavLink>
           <button
             className="navbar-toggler"
             type="button"
@@ -20,25 +24,85 @@ function Header() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <NavLink exact activeClassName="active" className="nav-link" to="/">Home</NavLink>
+                <NavLink
+                  exact
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/"
+                >
+                  Home
+                </NavLink>
               </li>
               <li className="nav-item">
-                <NavLink activeClassName="active" className="nav-link" to="/gallery">Gallery</NavLink>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/gallery"
+                >
+                  Gallery
+                </NavLink>
               </li>
-              <li><NavLink activeClassName="active" className="nav-link" to="/About">About Us</NavLink></li>
-              <li><NavLink activeClassName="active" className="nav-link" to="/Signin">Sign up</NavLink></li>
-              <li><NavLink activeClassName="active" className="nav-link" to="/contactus">ContactUs</NavLink></li>
-              <li><NavLink activeClassName="active" className="nav-link" to="/Profile">Profile</NavLink></li>
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/About"
+                >
+                  About Us
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/Signin"
+                >
+                  Sign up
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/contactus"
+                >
+                  ContactUs
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  activeClassName="active"
+                  className="nav-link"
+                  to="/Profile"
+                >
+                  Profile
+                </NavLink>
+              </li>
             </ul>
             <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
+              <input
+                className="form-control me-2"
+                type="search"
+                placeholder="Search"
+                aria-label="Search"
+              />
+              <button className="btn btn-outline-success" type="submit">
+                Search
+              </button>
             </form>
+            <div>
+              &nbsp;
+              <li>
+                <button disabled={true} className="btn btn-primary">
+                  Balance:{amount}
+                </button>
+              </li>
+            </div>
           </div>
         </div>
       </nav>
     </>
-  )
+  );
 }
 
 export default Header;

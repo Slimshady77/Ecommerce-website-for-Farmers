@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
-import './style.css'
+import './style.css';
+
 const options = {
   edit: false,
   color: "rgba(20,20,20,0.1)",
@@ -11,17 +12,27 @@ const options = {
   isHalf: true,
 };
 
-const Product = ({ product }) => {
+const Product = ({ products }) => {
+  if (!products || products.length === 0) {
+    // Handle the case where products is undefined or empty
+    return <div>No products available</div>;
+  }
+
   return (
-    <Link className="productCard" to={product._id}>
-      <img src={product.image[0].url} alt={product.name} />
-      <p>{product.name}</p>
-      <div>
-        <ReactStars {...options} />
-        <span>(256 reviews)</span>
-      </div>
-      <span>{product.price}</span>
-    </Link>
+    <div>
+      {products.map((product) => (
+        
+        <Link className="productCard" to={product._id} key={product._id}>
+          <img src={`/UPLOAD/${product.photo}`} alt={product.name} />
+          <p>{product.name}</p>
+          <div>
+            <ReactStars {...options} />
+            <span>(256 reviews)</span>
+          </div>
+          <span>{product.price}</span>
+        </Link>
+      ))}
+    </div>
   );
 };
 

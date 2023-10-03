@@ -18,7 +18,6 @@ export const productReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
-        products:[]
       };
 
     case ALL_PRODUCT_SUCCESS:

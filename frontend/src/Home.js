@@ -5,24 +5,21 @@ import Product from "./Product";
 import "./style.css";
 import { getProduct } from "./State/Actions/ProductAction";
 import { useSelector, useDispatch } from "react-redux";
-// const product = {
-//   name: "blue Tshirt",
-//   image: [{ url: "./images/meds.jpg" }],
-//   price: "Rs. 3000",
-//   prod:"TSHIRT",
-// desc: "Robin",
 
-// };
 function Home() {
-  
   const dispatch = useDispatch();
-  const products = useSelector((state) => state.products);
+  const products = useSelector((state) => state.products); // Access products correctly
+
   useEffect(() => {
     dispatch(getProduct());
   }, [dispatch]);
+
+  console.log(products); // Check the products array in the console
+
   if (!products) {
     return <div>Loading...</div>;
   }
+
   return (
     <Fragment>
       <Metadata title="Ecommerce" />
@@ -204,21 +201,11 @@ function Home() {
       </div>
 
       {/* Album Ends */}
-
+<h1>Our Products</h1>
       <div className="container">
-       
-  {Array.isArray(products) ? (
-    products.map((product) => (
-      <Product key={product._id} product={product} />
-    ))
-  ) : (
-    <div className="d-flex justify-content-center align-items-center" style={{ height: '200px' }}>
-      <div className="spinner-border text-primary" role="status">
-        <span className="visually-hidden">Loading...</span>
+        <Product products={products.products} />
       </div>
-    </div>
-  )}
-</div>
+
 
     </Fragment>
   );

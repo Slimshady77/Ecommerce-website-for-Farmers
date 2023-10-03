@@ -6,16 +6,24 @@ import {
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { productReducer } from "./Reducers/ProductReducer";
+import { amountReducer } from "./Reducers/amountReducer";
 
 const reducer = combineReducers({
   products: productReducer,
+  amount: amountReducer,
 });
 
-let initialState = {};
+const initialState = {
+  loading: false,
+  products: [],
+  productCount: 0,
+  error: null,
+};
+
 
 const middleware = [thunk];
 
-const Store = createStore( 
+const Store = createStore(
   reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))

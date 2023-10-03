@@ -6,22 +6,25 @@ import {
   CLEAR_ERRORS,
 } from "../Constants/ProductConstant";
 
-export const getProduct = (products) => async (dispatch) => {
+export const getProduct = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_PRODUCT_REQUEST });
 
-    const response = await axios.get("https://jsonplaceholder.typicode.com/todos/1"); // Assuming this is your API endpoint
-    // console.log(response)
-    const { products, productsCount } = response.data; // Destructure data from the response
-
+    const response = await axios.get(`/getProData`); // API endpoint
+    const { view: apiProducts } = response.data; // Destructure data from the response
+   
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
-      payload: { products, productsCount }, // Use object destructuring
+      payload: { products: apiProducts }, // Update the payload to use the correct property name
     });
   } catch (error) {
+    const errorMessage =
+      error.response && error.response.data
+        ? error.response.data.message
+        : "An error occurred.";
     dispatch({
       type: ALL_PRODUCT_FAIL,
-      payload: { error: error.response.data.message }, // Provide error message explicitly
+      payload: { error: errorMessage },
     });
   }
 };

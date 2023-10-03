@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import Balance from "./Balance";
 
 function Profile() {
   const navigate = useNavigate();
@@ -40,12 +41,12 @@ function Profile() {
           <tbody>
             <tr>
               <td>Email</td>
-
+<td>Balance</td>
               <td>phone</td>
             </tr>
             <tr>
               <td>{userData.email}</td>
-
+<td><Balance/></td>
               <td>{userData.mob}</td>
             </tr>
           </tbody>

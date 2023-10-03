@@ -11,7 +11,7 @@ dotenv.config({path:'./config.env'});
 require('./DB/connect')
 const PORT = process.env.PORT;
 app.use(express.json());
-app.use(require('./ROUTER/auth'));
+app.use(require('./ROUTER/auth'));// this making auth.js functional
 const errprMiddleware=require('./MIDDLEWARE/error')
 app.use(`/UPLOAD`, express.static('../frontend/public/UPLOAD'))
 
