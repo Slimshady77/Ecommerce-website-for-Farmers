@@ -16,6 +16,8 @@ import AddGallery from './AddGallery';
 import Gallery from './Gallery';
 import ViewAddProduct from './ViewAddProduct';
 import Balance from './Balance';
+import Cart from './Cart';
+import payment from './payment';
 // import webfont from "webfontloader"
 import React from 'react';
 
@@ -34,6 +36,7 @@ return(
    <Routes>
    <Route path='/' element={< Home/>}></Route>
 
+<Route path='/Cart' element={<Cart/>}></Route>
    <Route path='/About' element={< About/>}></Route>
 
    <Route path='/Gallery' element={< Gallery/>}></Route>
@@ -62,6 +65,8 @@ return(
    <Route path='/ViewAddProduct' element={<ViewAddProduct/>}> </Route>
 
 <Route path='/Balance' element={<Balance/>}></Route>
+<Route path='/payment' element={<payment/>}></Route>
+
 
 
 

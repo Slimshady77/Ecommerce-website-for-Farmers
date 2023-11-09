@@ -1,71 +1,99 @@
 .container {
-    display: flex;
-    flex-direction: row;
-    margin: 3vmax auto;
-    padding: 2px;
-    width: 80vw;
-    flex-wrap: wrap;
-    justify-content: center;
-    max-width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin: 3vmax auto;
+  padding: 2px;
+  width: 80vw;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
 }
-h1{
-    justify-content: center;
-    text-align: center;
-    color: skyblue;
+h1 {
+  justify-content: center;
+  text-align: center;
+  color: skyblue;
 }
 .productCard {
-    width: 14vmax;
-    display: flex;
-    flex-direction: column;
-    text-decoration: none;
-    color: rgb(203, 104, 104);
-    margin: 2vmax;
-    transition: all o.5s;
-    padding-bottom: 0.5vmax;
+  width: 14vmax;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: rgb(203, 104, 104);
+  margin: 2vmax;
+  transition: all o.5s;
+  padding-bottom: 0.5vmax;
 }
 
 .productCard:hover {
-    box-shadow: 0 0 5px rgb(203, 104, 104);
-    transform: translate(-1vmax);
+  box-shadow: 0 0 5px rgb(203, 104, 104);
+  transform: translate(-1vmax);
 }
 
-@media screen and (max-width:600px) {
-    .productCard {
-        margin: 0px;
-        font-size: 1.5vmax;
+@media screen and (max-width: 600px) {
+  .productCard {
+    margin: 0px;
+    font-size: 1.5vmax;
+  }
 
-    }
+  .productCard:hover {
+    box-shadow: 0 0 5px rgb(203, 104, 104);
+    transform: translate(-1vmax);
+  }
 
-    .productCard:hover {
-        box-shadow: 0 0 5px rgb(203, 104, 104);
-        transform: translate(-1vmax);
-    }
-
-    .productCard>div {
-        display: block;
-        margin: 0 0.5vmax;
-        font: 300 1vmax;
-    }
+  .productCard > div {
+    display: block;
+    margin: 0 0.5vmax;
+    font: 300 1vmax;
+  }
 }
 
 /* HOME Page */
 .carousel .carousel-item {
-    height: 600px;
-  }
-  
-  .carousel-item img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      min-height: 600px;
+  height: 600px;
+}
 
-  }
+.carousel-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 600px;
+}
 
-  /* Sign Up Page */
+/* Sign Up Page */
 
-   input.form-control{
-    margin-top: 5px;
-    max-width: 40vmax;
+input.form-control {
+  margin-top: 5px;
+  max-width: 40vmax;
+  border: 1px solid aqua;
+}
 
-    border: 1px solid aqua;
-  }
+section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.continue_shopping img {
+  height: 50px;
+  width: 50px;
+}
+
+.cart_items {
+  width: 90vw;
+  height: 100vh;
+  border: 1px solid grey;
+}
+
+.contactForm {
+  background: rgb(0, 0, 0, 0.7) url("../public/images/Career.svg") no-repeat
+    center;
+}
+
+.Signin {
+  background: #f0f6eb no-repeat center;
+}
+
+.proData {
+  display: flex;
+  flex-wrap: wrap;
+}

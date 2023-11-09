@@ -41,12 +41,14 @@ function Profile() {
           <tbody>
             <tr>
               <td>Email</td>
-<td>Balance</td>
+              <td>Balance</td>
               <td>phone</td>
             </tr>
             <tr>
               <td>{userData.email}</td>
-<td><Balance/></td>
+              <td>
+                <Balance />
+              </td>
               <td>{userData.mob}</td>
             </tr>
           </tbody>

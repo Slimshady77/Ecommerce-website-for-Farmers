@@ -8,7 +8,14 @@ function Header() {
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
           <NavLink to="/" className="navbar-brand">
-            BIG HAAT
+          <img
+              src="./images/logo.png"
+              className="bd-placeholder-img rounded circle"
+              width="80"
+              height="60"
+              alt="logo"
+              preserveAspectRatio="xMidYMid slice"
+            />
           </NavLink>
           <button
             className="navbar-toggler"
@@ -94,7 +101,7 @@ function Header() {
               &nbsp;
               <li>
                 <button disabled={true} className="btn btn-primary">
-                  Balance:{amount}
+                  Cart:{amount}
                 </button>
               </li>
             </div>

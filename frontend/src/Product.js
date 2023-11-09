@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ReactStars from 'react-rating-stars-component';
-import './style.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
+import "./style.css";
 
 const options = {
   edit: false,
@@ -19,9 +19,8 @@ const Product = ({ products }) => {
   }
 
   return (
-    <div>
+    <div className="proData">
       {products.map((product) => (
-        
         <Link className="productCard" to={product._id} key={product._id}>
           <img src={`/UPLOAD/${product.photo}`} alt={product.name} />
           <p>{product.name}</p>

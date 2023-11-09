@@ -20,7 +20,6 @@ const initialState = {
   error: null,
 };
 
-
 const middleware = [thunk];
 
 const Store = createStore(

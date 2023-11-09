@@ -1,61 +1,60 @@
-import React,{useState,useEffect} from 'react'
-import axios from 'axios';
-import Lefty from './Lefty';
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import Lefty from "./Lefty";
+import "./style1.css";
+import { useSelector, useDispatch } from "react-redux";
+import Product from "./Product";
+import { getProduct } from "./State/Actions/ProductAction";
 
-const ViewAddProduct=()=>{
+function ViewGallery() {
+  // const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const products = useSelector((state) => state.products); // Access products correctly
 
-    const [data,setData] = useState([]);
+  useEffect(() => {
+    dispatch(getProduct());
+  }, [dispatch]);
 
-    const[show,setShow] = useState(false);
-    
-    const getuserData = async ()=>{
-        const res = await axios.get("/getProData",{
-            headers:{
-                "Content-Type":"application/json"
-            }
-        });
-        if(res.data.status === 401 || !res.data){
-            console.log("error")
-    
-        }else{
-            setData(res.data.view)
-        }
-    }
-    useEffect(()=>{
-        getuserData();
-    },[])
-    return(
+  console.log(products); // Check the products array in the console
 
-        <>
-        
-       <div className="container mt-5 py-5">
+  if (!products) {
+    return <div>Loading...</div>;
+  }
+  // const getuserData = async () => {
+  //   try {
+  //     const res = await axios.get("/getProData", {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     if (res.data.status === 401 || !res.data) {
+  //       console.log("error");
+  //     } else {
+  //       setData(res.data.getUser);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   getuserData();
+  // }, []);
+
+  return (
+    <>
+      <div className="container mt-5 py-5">
         <div className="row">
-            <div className="col-lg-2 border border-danger">
-                {<Lefty/>}
-            </div>
-            
-            <div className="col-lg-10 mx-auto text-center border border-dark mx-auto text-center">
-                {
-                    (data || []).length > 0 ? data.map((el,i)=>{
-                        return (
-                            <>
-                            {/* <img  src={`../backend/UPLOAD/ ${el.photo} ` }/> */}
-                            <img  src={`UPLOAD/${ el.photo }` }/>
-                            <p>name:{el.name}</p>
-                            <p>name:{el.prod}</p>
-                            <p>name:{el.desc}</p>
-                            <p>price:{el.price}</p>
-                            </>
-                        )
-                    }):""
-                }
-             </div>
-             </div>
-             </div>
+          <div className="col-lg-2 border border-danger">
+            <Lefty />
+          </div>
 
-       
-        </>
-    )
+          <Product products={products.products} />
+        </div>
+      </div>
+    </>
+  );
 }
 
-export default ViewAddProduct;
+export default ViewGallery;

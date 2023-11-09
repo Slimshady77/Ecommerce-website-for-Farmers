@@ -68,7 +68,9 @@ function Home() {
                       className="btn btn-lg btn-primary"
                       data-bs-target="#myCarouse"
                     >
-                      Sign up today
+                      <NavLink className="btn btn-lg btn-primary" to="/Signin">
+                        Sign up today
+                      </NavLink>
                     </button>
                   </p>
                 </div>
@@ -86,7 +88,7 @@ function Home() {
                   <h1>Online Marketplace</h1>
                   <p>Indian Farmer's Own Website</p>
                   <p>
-                    <NavLink className="btn btn-lg btn-primary" to="/">
+                    <NavLink className="btn btn-lg btn-primary" to="/About">
                       Learn more
                     </NavLink>
                   </p>
@@ -105,7 +107,7 @@ function Home() {
                   <h1>Online Marketplace</h1>
                   <p>Indian Farmer's Own Website</p>
                   <p>
-                    <NavLink className="btn btn-lg btn-primary" to="/">
+                    <NavLink className="btn btn-lg btn-primary" to="/gallery">
                       Browse gallery
                     </NavLink>
                   </p>
@@ -201,12 +203,10 @@ function Home() {
       </div>
 
       {/* Album Ends */}
-<h1>Our Products</h1>
+      <h1>Our Products</h1>
       <div className="container">
         <Product products={products.products} />
       </div>
-
-
     </Fragment>
   );
 }

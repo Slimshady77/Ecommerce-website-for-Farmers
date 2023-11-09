@@ -1,64 +1,75 @@
-import React, {useState}from "react";
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
-const AddGallery=()=>{
-    const [newUser, setNewUser]= useState(
-       {
-        name:'',
-        // birthdate:'',
-        photo:'',
-       }
-    );
+const AddGallery = () => {
+  const [newUser, setNewUser] = useState({
+    name: "",
+    // birthdate:'',
+    photo: "",
+  });
 
-    const handleSubmit= (e)=> {
-        e.preventDefault();
-        const formData= new FormData();
-        formData.append('photo', newUser.photo);
-        // formData.append('birthdate', newUser.birthdate);
-        formData.append('name', newUser.name);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("photo", newUser.photo);
+    // formData.append('birthdate', newUser.birthdate);
+    formData.append("name", newUser.name);
 
-        axios.post('/addgallery', formData)
-        .then(res=> {console.log(res);
-        })
-        .catch(error=>{
-            console.log(error);
-        });
+    axios
+      .post("/addgallery", formData)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-    }
+  const handleChange = (e) => {
+    setNewUser({ ...newUser, [e.target.name]: e.target.value });
+  };
 
-    const handleChange=(e)=>{
-        setNewUser({...newUser, [e.target.name]: e.target.value});
-    }
+  const handlePhoto = (e) => {
+    setNewUser({ ...newUser, photo: e.target.files[0] });
+  };
 
-    const handlePhoto= (e)=>{
-        setNewUser({...newUser,photo: e.target.files[0]});
-    }
-
-    return(
-        <>
-        <div className='container w-50'>
-         <h1>upload image</h1>
-         <form  encType='multipart/form-data' method="POST">
-          <div className='input-group'>
-            <input type='file' className='form-control' accept='.png, .jpg, .jpeg' name='photo' onChange={handlePhoto} />
-
+  return (
+    <>
+      <div className="container w-50">
+        <h1>upload image</h1>
+        <form encType="multipart/form-data" method="POST">
+          <div className="input-group">
+            <input
+              type="file"
+              className="form-control"
+              accept=".png, .jpg, .jpeg"
+              name="photo"
+              onChange={handlePhoto}
+            />
           </div>
 
           <div class="input-group">
-          <input type='text' className='form-control' placeholder='name' name='name' value={newUser.name} onChange={handleChange}></input>
+            <input
+              type="text"
+              className="form-control"
+              placeholder="name"
+              name="name"
+              value={newUser.name}
+              onChange={handleChange}
+            ></input>
           </div>
-        
 
-        {/* <div class="input-group">
+          {/* <div class="input-group">
           <input type='date' className='form-control' name="birthdate"  value={newUser.birthdate} onChange={handleChange}></input>
           </div> */}
 
-        <button  name="submit" onSubmit={handleSubmit} type="submit">submit</button>
-
-         </form>
-        </div>
-        </>
-    )
-}
+          <button name="submit" onSubmit={handleSubmit} type="submit">
+            submit
+          </button>
+        </form>
+      </div>
+    </>
+  );
+};
 
 export default AddGallery;
