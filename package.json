@@ -1,8 +1,9 @@
 {
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "dev": "concurrently \"nodemon app.js\"  \"npm start\" "
+    "frontend": "cd frontend && npm start",
+    "backend":"cd backend && npm start",
+    "dev": "concurrently \"npm run frontend\"  \"npm run backend\" "
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

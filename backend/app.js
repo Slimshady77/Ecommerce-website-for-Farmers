@@ -7,7 +7,7 @@ const cors = require("cors");
 let app = express();
 app.use(cookieParser());
 const path = require("path");
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./.env" });
 require("./DB/connect");
 const PORT = process.env.PORT;
 app.use(express.json());
