@@ -6,7 +6,7 @@ COPY . .
 RUN npm run build
 
 FROM nginx
-EXPOSE 3900
+EXPOSE 3000
 COPY package*.json ./
 COPY --from=builder /app/build /usr/share/nginx/html
-CMD [ "app.js" ]
+CMD ["npm", "start"]
