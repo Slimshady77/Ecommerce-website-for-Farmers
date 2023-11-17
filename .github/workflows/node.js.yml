@@ -23,7 +23,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies and build backend
-      working-directory: /path/to/your/backend
+      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\backend
       run: |
         npm install
         npm run build
