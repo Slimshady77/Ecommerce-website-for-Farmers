@@ -2,7 +2,7 @@ name: Full CI/CD Pipeline
 
 on:
   push:
-    branches: [deploy]
+    branches: [deploy-2]
 
 jobs:
   build-and-deploy:
@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [18.x]
 
     steps:
     - name: Checkout code
@@ -41,7 +41,7 @@ jobs:
       working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
       run: |
         npm install
-        npm run build
+        npm run start
 
     - name: Deploy frontend
       working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
