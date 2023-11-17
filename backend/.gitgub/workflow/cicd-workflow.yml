@@ -1,0 +1,51 @@
+name: Full CI/CD Pipeline
+
+on:
+  push:
+    branches: [deploy]
+
+jobs:
+  build-and-deploy:
+
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Login to Docker hub
+      run: docker login -u ${{secrets.DOCKER_USERNAME}} -p{{secrets.DOCKERS_PASSWORD}}
+    - name: Build docker image
+      run: docker build -t backend .
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies and build backend
+      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\backend
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy backend
+      working-directory:  C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\backend
+      run: |
+        docker build -t backend .
+         docker run -p 3900:3900 --env-file .env -d backend
+
+    - name: Install dependencies and build frontend
+      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy frontend
+      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
+      run: |
+        # Assuming you are using a separate server for frontend or a CDN
+        # Replace the following command with your deployment steps for frontend
+        npm run start
