@@ -24,9 +24,20 @@ jobs:
       working-directory: backend
       run: |
         npm install
-        npm start
+        npm run build  # Assuming you have a build script for the backend
 
     - name: Deploy backend
       working-directory: backend
       run: |
-        npm start  # Assuming your start script handles the deployment
+        npm start  # Replace with your actual deployment script/command for the backend
+
+    - name: Install dependencies and build frontend
+      working-directory: frontend
+      run: |
+        npm install
+        npm run build  # Assuming you have a build script for the frontend
+
+    - name: Deploy frontend
+      working-directory: frontend
+      run: |
+        npm start  # Replace with your actual deployment script/command for the frontend
