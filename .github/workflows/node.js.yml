@@ -44,11 +44,16 @@ jobs:
 
     - name: Deploy to server
       run: |
-        # Save the SSH private key to a file
+        # Debug: Print the private key content
+        echo "Private key content: $SSH_PRIVATE_KEY"
+    
+        # Use the private key directly in the ssh command
         echo "$SSH_PRIVATE_KEY" > key.pem
         chmod 600 key.pem
     
-        # Use the private key directly in the ssh command
+        # Debug: Print the content of key.pem
+        cat key.pem
+    
         ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@172.31.7.82 "\
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
