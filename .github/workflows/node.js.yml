@@ -18,24 +18,16 @@ jobs:
       with:
         node-version: '14'
 
-    - name: Install Backend dependencies
+    - name: Install Backend dependencies and Build Backend Docker image
       run: |
         cd backend
         npm install
-
-    - name: Build Backend Docker image
-      run: |
-        cd backend
         docker build -t robincyril7/backend:latest .
 
-    - name: Install Frontend dependencies
+    - name: Install Frontend dependencies and Build Frontend Docker image
       run: |
         cd frontend
         npm install
-
-    - name: Build Frontend Docker image
-      run: |
-        cd frontend
         docker build -t robincyril7/frontend:latest .
 
     - name: Login to Docker Hub
@@ -54,18 +46,9 @@ jobs:
       run: |
         # SSH into your server
         ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" user@172.31.7.82 "\
-          npm start && \
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
-          docker pull robincyril7/backend:latest"
-    
-
-          # Run the Backend Docker container
-          docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest
-          
-          # Pull the Frontend Docker image
-          docker pull robincyril7/frontend:latest
-
-          # Run the Frontend Docker container
-          docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest
-        
+          docker pull robincyril7/backend:latest && \
+          docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest && \
+          docker pull robincyril7/frontend:latest && \
+          docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest"
