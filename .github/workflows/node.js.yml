@@ -53,7 +53,7 @@ jobs:
     - name: Deploy to server
       run: |
         # SSH into your server
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} user@172-31-7-82 "\
+        ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" user@172-31-7-82 "\
           npm start && \
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
