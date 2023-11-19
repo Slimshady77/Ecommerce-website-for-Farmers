@@ -44,7 +44,8 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh-keyscan -t ed25519 -H 13.126.249.153 >> ~/.ssh/authorized_keys
+        mkdir -p ~/.ssh
+        ssh-keyscan -t ed25519 -H 13.126.249.153 >> ~/.ssh/known_hosts
         ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") ubuntu@13.126.249.153 "\
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
@@ -52,6 +53,7 @@ jobs:
           docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest && \
           docker pull robincyril7/frontend:latest && \
           docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest"
+    
     
     
     
