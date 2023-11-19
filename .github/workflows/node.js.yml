@@ -1,0 +1,72 @@
+name: Node.js CI/CD with Docker
+
+on:
+  push:
+    branches:
+      - deploy-2
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '14'
+
+    - name: Install Backend dependencies
+      run: |
+        cd backend
+        npm install
+
+    - name: Build Backend Docker image
+      run: |
+        cd backend
+        docker build -t robincyril7/backend:latest .
+
+    - name: Install Frontend dependencies
+      run: |
+        cd frontend
+        npm install
+
+    - name: Build Frontend Docker image
+      run: |
+        cd frontend
+        docker build -t robincyril7/frontend:latest .
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Backend Docker image
+      run: docker push robincyril7/backend:latest
+
+    - name: Push Frontend Docker image
+      run: docker push robincyril7/frontend:latest
+
+    - name: Deploy to server
+      run: |
+        # SSH into your server
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} user@your-server-ip << EOF
+          # Stop and remove existing containers if any
+          docker stop backend-container frontend-container || true
+          docker rm backend-container frontend-container || true
+
+          # Pull the Backend Docker image
+          docker pull robincyril7/backend:latest
+
+          # Run the Backend Docker container
+          docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest
+          
+          # Pull the Frontend Docker image
+          docker pull robincyril7/frontend:latest
+
+          # Run the Frontend Docker container
+          docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest
+        
