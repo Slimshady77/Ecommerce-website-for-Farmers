@@ -53,13 +53,12 @@ jobs:
     - name: Deploy to server
       run: |
         # SSH into your server
-        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} user@your-server-ip << EOF
-          # Stop and remove existing containers if any
-          docker stop backend-container frontend-container || true
-          docker rm backend-container frontend-container || true
-
-          # Pull the Backend Docker image
-          docker pull robincyril7/backend:latest
+        ssh -o StrictHostKeyChecking=no -i ${{ secrets.SSH_PRIVATE_KEY }} user@172-31-7-82 "\
+          npm start && \
+          docker stop backend-container frontend-container || true && \
+          docker rm backend-container frontend-container || true && \
+          docker pull robincyril7/backend:latest"
+    
 
           # Run the Backend Docker container
           docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest
