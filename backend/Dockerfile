@@ -1,12 +1,17 @@
+# First stage: Builder
 FROM node:14 as builder
 WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
 
-# FROM nginx
+# Second stage: Final image
+FROM nginx
 EXPOSE 3900
-COPY package*.json ./
-COPY --from=builder /app/build /usr/share/nginx/html
-CMD ["npm", "start"]
-COPY .env /app  
+WORKDIR /usr/share/nginx/html
+
+# Copy the source code to the final image
+COPY --from=builder /app /usr/share/nginx/html
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
