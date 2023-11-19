@@ -44,9 +44,8 @@ jobs:
 
     - name: Deploy to server
       run: |
-        echo "$SSH_PRIVATE_KEY" > key.pem
-        chmod 600 key.pem
-        ssh -o StrictHostKeyChecking=no -i key.pem ubuntu@13.126.249.153 "\
+        # SSH into your server
+        ssh -o StrictHostKeyChecking=no -i "${{ secrets.SSH_PRIVATE_KEY }}" ubuntu@13.126.249.153 "\
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
           docker pull robincyril7/backend:latest && \
