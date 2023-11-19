@@ -63,7 +63,7 @@ router.post("/login", async (req, res, next) => {
       const token = await userLogin.generateAuthToken();
       console.log(token);
       res.cookie("jwtoken", token, {
-        expires: new Date(Date.now() + 25892000000),
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
         httpOnly: true,
       });
       if (!isMatch) {
@@ -214,7 +214,7 @@ router.get("/getfiledata", async (req, res) => {
 router.get("/getGallerydata", async (req, res) => {
   try {
     const getUser = await gallery.find();
-    res.status(201).json({ status: 201, getUser });
+    res.status(201).json({ status: 200, getUser });
   } catch (error) {
     res.status(401).json({ status: 401, error });
   }
@@ -234,4 +234,6 @@ router.get("/getUser", async (req, res, next) => {
   }
 });
 
+
+router.get
 module.exports = router;

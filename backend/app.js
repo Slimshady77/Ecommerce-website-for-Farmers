@@ -7,9 +7,9 @@ const cors = require("cors");
 let app = express();
 app.use(cookieParser());
 const path = require("path");
-dotenv.config({ path: "./config.env" });
+dotenv.config({ path: "./.env" });
 require("./DB/connect");
-const PORT = process.env.PORT;
+const PORT = process.env.PORT|| 3900;
 app.use(express.json());
 app.use(require("./ROUTER/auth")); // this making auth.js functional
 const errprMiddleware = require("./MIDDLEWARE/error");

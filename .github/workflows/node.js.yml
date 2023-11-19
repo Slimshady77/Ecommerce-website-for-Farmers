@@ -1,48 +1,62 @@
-name: Full CI/CD Pipeline
+name: Node.js CI/CD with Docker
 
 on:
   push:
-    branches: [deploy]
+    branches:
+      - deploy-2
 
 jobs:
   build-and-deploy:
-
-    runs-on: self-hosted
-
-    strategy:
-      matrix:
-        node-version: [14.x]
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Set up Node.js
+    - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '14'
 
-    - name: Install dependencies and build backend
-      working-directory: /path/to/your/backend
+    - name: Install Backend dependencies and Build Backend Docker image
       run: |
+        cd backend
         npm install
-        npm run build
+        docker build -t robincyril7/backend:latest .
 
-    - name: Deploy backend
-      working-directory:  C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\backend
+    - name: Install Frontend dependencies and Build Frontend Docker image
       run: |
-        docker build -t backend .
-        docker run -p 3900:3900 -d backend
-
-    - name: Install dependencies and build frontend
-      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
-      run: |
+        cd frontend
         npm install
-        npm run build
+        docker build -t robincyril7/frontend:latest .
 
-    - name: Deploy frontend
-      working-directory: C:\Users\Robin Cyril\Desktop\dbTOROFX\Marketplace\Ecommerce-website-for-Farmers\frontend
+    - name: Login to Docker Hub
+      uses: docker/login-action@v1
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Push Backend Docker image
+      run: docker push robincyril7/backend:latest
+
+    - name: Push Frontend Docker image
+      run: docker push robincyril7/frontend:latest
+
+    - name: Deploy to server
       run: |
-        # Assuming you are using a separate server for frontend or a CDN
-        # Replace the following command with your deployment steps for frontend
-        echo "Deploy frontend steps here"
+        mkdir -p ~/.ssh
+        echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -t ed25519 -H 13.126.249.153 >> ~/.ssh/known_hosts
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa ubuntu@13.126.249.153 "\
+          docker stop backend-container frontend-container || true && \
+          docker rm backend-container frontend-container || true && \
+          docker pull robincyril7/backend:latest && \
+          docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest && \
+          docker pull robincyril7/frontend:latest && \
+          docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest"
+    
+    
+    
+    
+    
