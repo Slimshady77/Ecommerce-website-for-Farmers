@@ -44,11 +44,12 @@ jobs:
 
     - name: Deploy to server
       run: |
-        ssh -o StrictHostKeyChecking=no -i <(echo "$SSH_PRIVATE_KEY") ubuntu@13.126.249.153 "\
+        echo "$SSH_PRIVATE_KEY" | ssh -o StrictHostKeyChecking=no -i /dev/stdin ubuntu@13.126.249.153 "\
           docker stop backend-container frontend-container || true && \
           docker rm backend-container frontend-container || true && \
           docker pull robincyril7/backend:latest && \
           docker run -d --name backend-container -p 3900:3900 robincyril7/backend:latest && \
           docker pull robincyril7/frontend:latest && \
           docker run -d --name frontend-container -p 80:80 robincyril7/frontend:latest"
+    
     
