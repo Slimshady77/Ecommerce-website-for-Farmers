@@ -54,8 +54,8 @@ const AddProduct = () => {
       <div>
         <div class="container text-center">
           <div class="row">
-            <div class="col-lg-4 border border-danger">{<Lefty />}</div>
-            <div class="col-lg-8 border border-danger">
+            <div class="col-lg-4 border">{<Lefty />}</div>
+            <div class="col-lg-8 border ">
               <form
                 encType="multipart/form-data"
                 method="POST"
@@ -114,7 +114,9 @@ const AddProduct = () => {
                     onChange={handleChange}
                   ></input>
                 </div>
-                <button type="submit">submit</button>
+                <button type="submit" style={{ margin: 5 }}>
+                  submit
+                </button>
               </form>
 
               {/* <form  encType='multipart/form-data' method="POST">

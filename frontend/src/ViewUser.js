@@ -32,10 +32,10 @@ const ViewUser = () => {
       <div>
         <div className="container text-center">
           <div className="row">
-            <div className="col-lg-4 border border-danger">
+            <div className="col-lg-4 border">
               <Lefty />
             </div>
-            <div className="col-lg-8 border border-danger">
+            <div className="col-lg-8 border">
               {userData.users.map((user) => (
                 <div key={user._id}>
                   <h2>{user.name}</h2>

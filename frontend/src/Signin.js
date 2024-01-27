@@ -129,15 +129,20 @@ function Signin() {
               type="submit"
               onClick={postData}
               className="btn btn-primary"
+              style={{ margin: 5 }}
             >
               Submit
             </button>
-            <button className="btn" onClick={() => clearArray()}>
+            <button
+              className="btn btn-info"
+              onClick={() => clearArray()}
+              style={{ margin: 5 }}
+            >
               Clear
             </button>
 
             <p>Already a Member!</p>
-            <NavLink to="/Login" className="nav-link">
+            <NavLink to="/Login" className="btn btn-primary">
               Sign in
             </NavLink>
           </form>

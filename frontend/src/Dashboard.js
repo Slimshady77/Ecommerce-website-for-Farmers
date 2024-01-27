@@ -5,8 +5,8 @@ function Dashboard() {
     <div>
       <div class="container text-center">
         <div class="row">
-          <div class="col-lg-4 border border-danger">{<Lefty />}</div>
-          <div class="col-lg-8 border border-danger">
+          <div class="col-lg-4 border ">{<Lefty />}</div>
+          <div class="col-lg-8 border ">
             <h1>Welcome to Admin Panel</h1>
           </div>
         </div>

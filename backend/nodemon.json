@@ -1,0 +1,6 @@
+{
+  "env": {
+    "DATABASE": "mongodb+srv://robincyril24:Robin1993@cluster0.rebkxr7.mongodb.net/?retryWrites=true&w=majority",
+    "PORT": 3900
+  }
+}

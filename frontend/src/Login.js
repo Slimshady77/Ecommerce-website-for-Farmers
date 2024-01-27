@@ -29,21 +29,19 @@ function Login() {
         pass,
       }),
     });
-    const data = await res.json();
 
-    if (data.status === 400 || !data) {
-      window.alert("invalid login");
-      console.log("invalid login");
+    if (!res.ok) {
+      window.alert("Invalid login");
+      console.log("Invalid login");
     } else {
-      window.alert("valid login");
-
-      //  dispatch({ type: "USER", payload:true });
-
-      // console.log("valid login");
-      //https://v5.reactrouter.com/web/api/Hooks
+      const data = await res.json();
+      window.alert("Valid login");
+      // Assuming data contains information about the successful login, you can use it for further handling
+      // Example: navigate to the user's profile page
       navigate("/Profile");
     }
   };
+
   return (
     <>
       <div className="container bg-dark mt-5 w-50">

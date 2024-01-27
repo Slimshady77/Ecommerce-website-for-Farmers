@@ -53,15 +53,13 @@ function Home() {
           <div className="carousel-inner">
             <div className="carousel-item">
               <img
-                src="./images/img1.jpg"
+                src="./images/img1.svg"
                 width="100%"
                 height="40%"
-                alt="hospital"
+                alt="farmer"
               />
               <div className="container">
                 <div className="carousel-caption text-start">
-                  <h1>Online Marketplace</h1>
-                  <p>Indian Farmer's Own Website</p>
                   <p>
                     <button
                       type="button"
@@ -81,12 +79,10 @@ function Home() {
                 src="./images/2.jpg"
                 width="100%"
                 height="60%"
-                alt="hospital"
+                alt="agriculture"
               />
               <div className="container">
                 <div className="carousel-caption">
-                  <h1>Online Marketplace</h1>
-                  <p>Indian Farmer's Own Website</p>
                   <p>
                     <NavLink className="btn btn-lg btn-primary" to="/About">
                       Learn more
@@ -100,12 +96,10 @@ function Home() {
                 src="./images/3.jpg"
                 width="100%"
                 height="60%"
-                alt="hospital"
+                alt="organic"
               />
               <div className="container">
                 <div className="carousel-caption text-end">
-                  <h1>Online Marketplace</h1>
-                  <p>Indian Farmer's Own Website</p>
                   <p>
                     <NavLink className="btn btn-lg btn-primary" to="/gallery">
                       Browse gallery
@@ -145,14 +139,14 @@ function Home() {
       {/* Carousal Ends */}
 
       {/* Album Starts */}
-      <div className="container mt-5">
+      <div className="container mt-5 p-5">
         <div className="row">
           <div className="col-lg-4 mx-auto text-center">
             <img
               src="./images/doc.jpg"
               className="bd-placeholder-img rounded circle"
-              width="140"
-              height="140"
+              width="100"
+              height="100"
               alt="doc"
               preserveAspectRatio="xMidYMid slice"
             />
@@ -169,8 +163,8 @@ function Home() {
             <img
               src="./images/meds.jpg"
               className="bd-placeholder-img rounded circle"
-              width="140"
-              height="140"
+              width="100"
+              height="100"
               alt="doc"
               preserveAspectRatio="xMidYMid slice"
             />
@@ -186,13 +180,13 @@ function Home() {
             <img
               src="./images/lab.jpg"
               className="bd-placeholder-img rounded circle"
-              width="140"
-              height="140"
+              width="100"
+              height="100"
               alt="doc"
               preserveAspectRatio="xMidYMid slice"
             />
-            <h2 className="fw-normal">Most Advanced $ Organinc fertilizers </h2>
-            <p>11 of the Best Fertilizers for Growing Vegetables</p>
+            <h2 className="fw-normal">Organinc fertilizers </h2>
+            <p> Best Fertilizers for Growing Vegetables</p>
             <p>
               <NavLink className="btn btn-secondary" to="/">
                 View details »

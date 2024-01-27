@@ -69,7 +69,7 @@ router.post("/login", async (req, res, next) => {
       if (!isMatch) {
         res.json({ error: "invalid credentials" });
       } else {
-        res.json({ message: "user signin successfully" });
+        res.json({ success: true });
       }
     } else {
       res.json({ error: "invalid credentials" });
@@ -88,7 +88,7 @@ router.get("/Profile", Authenticate, (req, res, next) => {
     return next(new Error("Not Logged in")); // You might need to handle errors correctly here
   }
   res.send(req.rootUser);
-  // console.log(req.rootUser);
+  console.log(req.rootUser);
 });
 
 // contact GET API
@@ -96,6 +96,30 @@ router.get("/Profile", Authenticate, (req, res, next) => {
 router.get("/getdata", Authenticate, (req, res) => {
   console.log("Hello Robin!");
   res.send(req.rootUser);
+});
+// get Single Product
+
+// Import necessary modules or models
+
+// Define the controller function
+router.get("/singleProduct/:id", async (req, res) => {
+  try {
+    const prduct = await product.findById(req.params.id);
+
+    // Send a successful response with the retrieved product
+    res.status(200).send({
+      success: true,
+      message: "Product retrieved successfully.",
+      prduct,
+    });
+  } catch (error) {
+    // Handle errors and send an error response
+    res.status(500).send({
+      success: false,
+      message: "Error while getting the single product.",
+      error,
+    });
+  }
 });
 
 // contact POST API

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import Lefty from "./Lefty";
 
 const AddGallery = () => {
   const [newUser, setNewUser] = useState({
@@ -37,7 +38,10 @@ const AddGallery = () => {
     <>
       <div className="container w-50">
         <h1>upload image</h1>
-        <form encType="multipart/form-data" method="POST">
+        <div className="col-lg-4 border">
+          <Lefty />
+        </div>
+        <form encType="multipart/form-data" method="POST" style={{ margin: 5 }}>
           <div className="input-group">
             <input
               type="file"
@@ -63,7 +67,12 @@ const AddGallery = () => {
           <input type='date' className='form-control' name="birthdate"  value={newUser.birthdate} onChange={handleChange}></input>
           </div> */}
 
-          <button name="submit" onSubmit={handleSubmit} type="submit">
+          <button
+            name="submit"
+            onSubmit={handleSubmit}
+            type="submit"
+            style={{ margin: 5 }}
+          >
             submit
           </button>
         </form>

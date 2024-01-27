@@ -1,17 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 .container {
+  background: var(
+    --2,
+    linear-gradient(115deg, #471ca9 -0.99%, #753caf 54.28%, #a173d0 78.99%)
+  );
   display: flex;
   flex-direction: row;
-  margin: 3vmax auto;
-  padding: 2px;
-  width: 80vw;
+  margin: 0.1vmax auto;
+  padding: 20px;
+  width: 100vw;
   flex-wrap: wrap;
   justify-content: center;
   max-width: 100%;
 }
 h1 {
+  color: var(--White-100, #332258);
+  font-family: Gilroy;
+  font-size: 120px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 110px; /* 91.667% */
+  align-items: center;
   justify-content: center;
-  text-align: center;
-  color: skyblue;
 }
 .productCard {
   width: 14vmax;
@@ -28,7 +42,9 @@ h1 {
   box-shadow: 0 0 5px rgb(203, 104, 104);
   transform: translate(-1vmax);
 }
-
+.btn {
+  background-color: #56ffa4;
+}
 @media screen and (max-width: 600px) {
   .productCard {
     margin: 0px;

@@ -46,7 +46,7 @@ function ViewGallery() {
     <>
       <div className="container mt-5 py-5">
         <div className="row">
-          <div className="col-lg-2 border border-danger">
+          <div className="col-lg-2 border">
             <Lefty />
           </div>
 

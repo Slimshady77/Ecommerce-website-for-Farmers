@@ -70,7 +70,7 @@ const ContactUs = () => {
   return (
     <>
       <div className="container contactForm">
-        <div className="row py-4">
+        <div className="row">
           <div className="col-lg-6">
             <div className="container">
               <h2>
@@ -123,7 +123,7 @@ const ContactUs = () => {
                     <input
                       type="text"
                       className="form-control"
-                      placeholder="Name"
+                      placeholder="Your Message here..."
                       value={userData.message}
                       onChange={handleInputs}
                       autoComplete="off"
@@ -134,6 +134,7 @@ const ContactUs = () => {
                     type="submit"
                     onClick={contactForm}
                     className="btn btn-primary"
+                    style={{ margin: 5 }}
                   >
                     Submit
                   </button>
