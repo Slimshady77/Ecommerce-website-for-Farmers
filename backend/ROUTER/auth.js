@@ -2,93 +2,163 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const router = express.Router();
 const bcrypt = require("bcryptjs");
-const Authenticate = require("../MIDDLEWARE/Authentication");
 const multer = require("multer");
 const gallery = require("../MODEL/gallerySchema");
 const product = require("../MODEL/addProductSchema");
 require("../DB/connect");
-
-const userModel = require("../MODEL/signupSchema");
+const path = require("path");
+const { userModel } = require("../MODEL/signupSchema");
 const ErrorHander = require("../utils/errorhandler");
-
-router.get("/", (req, res) => {
-  res.send(`hello with Router`);
-});
-
+const ApiFeatures = require("../utils/apiFeatures");
+const addProduct = require("../MODEL/addProductSchema");
+const { ensureAdmin } = require("../MODEL/signupSchema");
+const { ensureAuthentication } = require("../MIDDLEWARE/Admin");
+const Authenticate = require("../MIDDLEWARE/Authentication");
+const nodemailer = require("nodemailer");
 // Signup Post API
 
 router.post("/signup", async (req, res) => {
   const { name, mob, email, pass, cpass } = req.body;
   if (!name || !mob || !email || !pass || !cpass) {
-    return res.status(422).json({ error: "Please fill all feilds" });
+    return res.status(422).json({ error: "Please fill all fields" });
   }
 
   try {
-    const useExist = await userModel.findOne({ email: email });
-    if (useExist) {
-      return res.status(422).json({ error: "Email already exist" });
-    } else if (pass != cpass) {
-      return res.status(422).json({ error: "Password doesn't match" });
+    const userExist = await userModel.findOne({ email: email });
+
+    if (userExist) {
+      return res.status(422).json({ error: "Email already exists" });
+    } else if (pass !== cpass) {
+      return res.status(422).json({ error: "Passwords don't match" });
     }
 
-    const user = new userModel({ name, mob, email, pass, cpass });
-    const userregister = await user.save();
+    const user = new userModel({
+      name,
+      mob,
+      email,
+      pass,
+      cpass,
+      avatar: { public_id: "rrr", url: "profilepic" },
+    });
+
+    await user.save();
+    const userLogin = await userModel.findOne({ email: email });
+    console.log(userLogin);
+    await userLogin.generateAuthToken();
 
     console.log(user);
-    if (userregister) {
-      res.status(201).json({ message: "user registered successfully" });
-    }
+
+    res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    console.log(err);
+    console.error(err);
+    res.status(500).json({ error: "Internal server error" });
   }
 });
 
 // Login Post API
 
 router.post("/login", async (req, res, next) => {
-  // console.log(req.body);
-  // res.json({massage:req.body});
   try {
     const { email, pass } = req.body;
+
     if (!email || !pass) {
-      // return res.status(400).json({error:"plz filled  the data"}) changed with errorHander
-      return next(new ErrorHander("Not Logged in ", 404));
+      return next(new ErrorHander("Email and password are required", 400));
     }
 
     const userLogin = await userModel.findOne({ email: email });
-    console.log(userLogin);
+
     if (userLogin) {
       const isMatch = await bcrypt.compare(pass, userLogin.pass);
 
+      if (!isMatch) {
+        return next(new ErrorHander("Invalid credentials", 401));
+      }
+
       const token = await userLogin.generateAuthToken();
-      console.log(token);
+
       res.cookie("jwtoken", token, {
         expires: new Date(Date.now() + 25892000000),
         httpOnly: true,
       });
-      if (!isMatch) {
-        res.json({ error: "invalid credentials" });
-      } else {
-        res.json({ success: true });
-      }
+
+      res.status(200).json({ success: true });
     } else {
-      res.json({ error: "invalid credentials" });
+      return next(new ErrorHander("Invalid credentials", 401));
     }
   } catch (err) {
-    // console.log(err);
-    return next(new ErrorHander("Not Logged in ", 404));
+    console.error(err);
+    return next(new ErrorHander("Internal Server Error", 500));
+  }
+});
+
+// Logout method
+router.get("/logout", async (req, res, next) => {
+  res.cookie("jwtoken", null, { expires: new Date(), httpOnly: true });
+  res.status(200).json({ success: true, message: "Logged out successfully" });
+});
+
+// forgot Password
+router.post("/forgot-password", async (req, res, next) => {
+  try {
+    const userEmail = req.body.email;
+
+    const userData = await userModel.findOne({ email: userEmail }).exec();
+
+    if (userData) {
+      var token =
+        Math.random().toString(36).substring(2, 15) +
+        Math.random().toString(36).substring(2, 15);
+      const newEmail = await userModel.updateOne(
+        { email: userEmail },
+        { $set: { token: token } }
+      );
+
+      const transporter = nodemailer.createTransport({
+        service: "Gmail",
+        auth: {
+          user: "robincyril24@gmail.com",
+          pass: "lqrworpwjuyvnacu",
+        },
+      });
+
+      // Send the password reset mail
+      const mailOptions = {
+        to: userEmail,
+        subject: `Password Reset Request`,
+        text: `Click the following link to reset your password: http://localhost:3900/reset-password/${token}`,
+        html: `<p>Click the following link to reset your password: <a href="http://localhost:3900/reset-password/${token}">Reset Password</a></p>`,
+      };
+
+      transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+          console.error("Error sending mail:", error);
+          return res
+            .status(500)
+            .json({ success: false, msg: "Error sending mail" });
+        } else {
+          console.log("Mail sent:", info);
+          res.status(200).json({
+            success: true,
+            msg: "Reset link has been sent to your email!",
+          });
+        }
+      });
+    } else {
+      return res.status(404).json({ success: false, msg: "Email not found" });
+    }
+  } catch (error) {
+    res.status(400).json({ success: false, msg: error.message });
   }
 });
 
 // Profile GET API
-
 router.get("/Profile", Authenticate, (req, res, next) => {
   // console.log(req.userID);
   if (!req.userID) {
     return next(new Error("Not Logged in")); // You might need to handle errors correctly here
   }
   res.send(req.rootUser);
-  console.log(req.rootUser);
+  // console.log(req.rootUser);
 });
 
 // contact GET API
@@ -97,23 +167,19 @@ router.get("/getdata", Authenticate, (req, res) => {
   console.log("Hello Robin!");
   res.send(req.rootUser);
 });
+
 // get Single Product
 
-// Import necessary modules or models
-
-// Define the controller function
 router.get("/singleProduct/:id", async (req, res) => {
   try {
     const prduct = await product.findById(req.params.id);
 
-    // Send a successful response with the retrieved product
     res.status(200).send({
       success: true,
       message: "Product retrieved successfully.",
       prduct,
     });
   } catch (error) {
-    // Handle errors and send an error response
     res.status(500).send({
       success: false,
       message: "Error while getting the single product.",
@@ -191,35 +257,46 @@ router.route("/addGallery").post(upload.single("photo"), (req, res) => {
 });
 
 // Post api for Add product////////////////////////////////
-router.route("/addProduct").post(upload.single("photo"), (req, res) => {
+
+router.route("/addProduct").post(upload.single("photo"), (req, res, next) => {
   const name = req.body.name;
   const prod = req.body.prod;
   const desc = req.body.desc;
   const price = req.body.price;
-  const photo = req.file.filename;
 
+  const photo = req.file.filename;
+  if (!name || !prod || !desc || !price || !photo) {
+    const error = new ErrorHander("Data is required", 400);
+    return next(error);
+  }
   const newUserData = {
     name,
+    prod,
     desc,
     price,
     photo,
-    prod,
   };
 
-  const user = new product(newUserData);
+  const user = new addProduct(newUserData);
   user
     .save()
-    .then(() => res.json("user Added"))
+    .then(() => res.json("Product Added"))
     .catch((err) => res.status(400).json("Error:" + err));
 });
 
 // get View add Product API/////////////////////////////////////////////////////////////////////////////
+const resultPerPage = 10;
 router.get("/getProData", async (req, res) => {
   try {
-    const view = await product.find();
-    res.status(201).json({ status: 201, view });
+    const productCount = await product.countDocuments();
+    const apiFeatures = new ApiFeatures(product.find(), req.query)
+      .search()
+      .filter()
+      .pagination(resultPerPage);
+    const view = await apiFeatures.query;
+    res.status(201).json({ status: 201, view, productCount });
   } catch (error) {
-    res.status(401).json({ status: 401, error });
+    res.status(401).json({ status: 401, error: error.message }); // Assuming you want to send the error message
   }
 });
 

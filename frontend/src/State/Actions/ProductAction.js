@@ -12,7 +12,7 @@ export const getProduct = () => async (dispatch) => {
 
     const response = await axios.get(`/getProData`); // API endpoint
     const { view: apiProducts } = response.data; // Destructure data from the response
-   
+
     dispatch({
       type: ALL_PRODUCT_SUCCESS,
       payload: { products: apiProducts }, // Update the payload to use the correct property name

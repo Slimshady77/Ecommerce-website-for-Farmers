@@ -27,6 +27,8 @@ import payment from "./payment";
 import React from "react";
 import { Wishlist } from "./Components/Wishlist/Wishlist";
 import { Cart } from "./Cart";
+import Search from "./Components/Product/Search";
+import Products from "./Components/Product/ProductsPage";
 // React.useEffect(()=>{
 // webfont.load({
 //     google:
@@ -92,7 +94,9 @@ function App() {
           </Route>
 
           <Route path="/Balance" element={<Balance />}></Route>
-          <Route path="/payment" element={<payment />}></Route>
+          <Route path="/products" element={<Products />}></Route>
+          <Route path="/products/:keyword" element={<Products />}></Route>
+          <Route path="/search" element={<Search />}></Route>
         </Routes>
       </BrowserRouter>
       {<Footer />}

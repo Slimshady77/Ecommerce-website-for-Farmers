@@ -18,8 +18,9 @@ const Balance = () => {
     }
   };
   const depositMoney = (amountToDeposite) => {
+    console.log(Product.products);
     if (amount + amountToDeposite >= Product.products) {
-      action.withdrawMoney(amountToDeposite);
+      action.depositMoney(amountToDeposite);
     } else {
       console.log("Insufficient balance.");
     }

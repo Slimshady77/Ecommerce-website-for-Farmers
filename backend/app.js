@@ -13,11 +13,14 @@ const PORT = process.env.PORT;
 app.use(express.json());
 app.use(require("./ROUTER/auth")); // this making auth.js functional
 const errprMiddleware = require("./MIDDLEWARE/error");
+const { ensureAdmin, ensureAuthentication } = require("./MIDDLEWARE/Admin");
 app.use(`/UPLOAD`, express.static("../frontend/public/UPLOAD"));
 
 // Midellware for errors
 app.use(errprMiddleware);
 
+// Use your custom middleware
+// app.use(ensureAuthentication);
 // enable cors for all routes
 app.use(cors());
 app.listen(PORT, () => {

@@ -1,10 +1,8 @@
-import { depositMoney, withdrawMoney } from './AmountAction'; 
+import { depositMoney, withdrawMoney } from "./AmountAction";
 
 const actionCreator = {
   depositMoney,
   withdrawMoney,
 };
 
-export {
-  actionCreator
-} 
+export { actionCreator };

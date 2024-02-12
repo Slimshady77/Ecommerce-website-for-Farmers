@@ -3,31 +3,40 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const addProductSchema = new Schema({
-  product_id: {
-    type: Number,
-    farmer_id: Number,
-  },
+  // product_id: {
+  //   type: Number,
+  //   farmer_id: Number,
+  // },
   name: {
     type: String,
-    required: true,
     trim: true,
   },
-  photo: {
-    type: String,
-  },
+  photo: String,
 
-  productType: {
-    type: String,
-  },
+  // productType: {
+  //   type: String,
+  // },
   desc: {
     type: String,
   },
   price: {
     type: String,
   },
-  rating: {
-    type: Number,
-    default: 0,
+  prod: {
+    type: String,
+  },
+  // rating: {
+  //   type: Number,
+  //   default: 0,
+  // },
+  // user: {
+  //   type: mongoose.Schema.ObjectId, // Corrected
+  //   ref: "User",
+  //   required: true,
+  // },
+  createdAt: {
+    type: Date,
+    default: Date.now,
   },
 });
 

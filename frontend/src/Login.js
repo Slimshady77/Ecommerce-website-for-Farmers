@@ -2,19 +2,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Login() {
-  // const {state,dispatch}=useContext(UserContext);
   const navigate = useNavigate();
   const [user, setUser] = useState({
     email: "",
     pass: "",
   });
-  let name, value;
+
   const handleInputs = (e) => {
-    console.log(e);
-    name = e.target.name;
-    value = e.target.value;
+    const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   };
+
   const postData = async (e) => {
     e.preventDefault();
     const { email, pass } = user;
@@ -36,25 +34,76 @@ function Login() {
     } else {
       const data = await res.json();
       window.alert("Valid login");
-      // Assuming data contains information about the successful login, you can use it for further handling
-      // Example: navigate to the user's profile page
       navigate("/Profile");
     }
   };
 
+  const forgetPassword = async () => {
+    try {
+      const res = await fetch(`/forgot-password`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email,
+        }),
+      });
+      if (res.ok) {
+        window.alert("Password reset email sent");
+        toggleModal(); // Close the modal after successful email submission
+      } else {
+        window.alert("Failed to send password reset email");
+      }
+    } catch (error) {
+      console.log(error);
+      window.alert("Error occurred while sending password reset email");
+    }
+  };
+
+  const [modal, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!modal);
+  };
+
   return (
     <>
+      {modal && (
+        <div>
+          <div className="modal-body">
+            <div className="overlay">
+              <div>
+                <h2>FORGOT PASSWORD</h2>
+                <label>Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  value={user.email}
+                  onChange={handleInputs}
+                />
+                <button onClick={forgetPassword}>Submit</button>
+              </div>
+              <button className="close-modal" onClick={toggleModal}>
+                close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="container bg-dark mt-5 w-50">
-        <form className="p-5" method="post">
-          <div class="d-grid">
-            <button type="button" class="btn btn-danger btn-block">
+        <form className="p-5" onSubmit={postData}>
+          <div className="d-grid">
+            <button type="button" className="btn btn-danger btn-block">
               Registration form
             </button>
           </div>
 
           <div className="input-group mb-3">
             <input
-              type="text"
+              type="email"
               className="form-control"
               placeholder="Your Email"
               name="email"
@@ -67,7 +116,7 @@ function Login() {
 
           <div className="input-group mb-3">
             <input
-              type="text"
+              type="password"
               className="form-control"
               placeholder="Your Password"
               name="pass"
@@ -81,13 +130,16 @@ function Login() {
           <input
             type="submit"
             className="form-submit"
-            onClick={postData}
             name="submit"
-            value="submit"
+            value="Submit"
           />
+          <button className="form-submit" onClick={toggleModal}>
+            Forgot Password
+          </button>
         </form>
       </div>
     </>
   );
 }
+
 export default Login;

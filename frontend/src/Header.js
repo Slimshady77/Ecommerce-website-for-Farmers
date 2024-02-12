@@ -12,7 +12,7 @@ function Header() {
       <div className="container-fluid">
         <NavLink to="/" className="navbar-brand">
           <img
-            src="./images/logo.png"
+            src="/./images/logo.png"
             className="bd-placeholder-img rounded circle"
             width="80"
             height="60"
@@ -109,7 +109,7 @@ function Header() {
           </form>
           <div className="d-flex align-items-center">
             <img
-              src="images/cart.png"
+              src="/images/cart.png"
               alt="cart"
               style={{ height: 40, width: 40, cursor: "pointer" }}
               onClick={() => setShowCart(true)}

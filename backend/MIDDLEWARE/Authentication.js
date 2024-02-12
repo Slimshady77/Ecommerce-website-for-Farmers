@@ -1,26 +1,33 @@
 const jwt = require("jsonwebtoken");
-const userModel = require("../MODEL/signupSchema");
+const ErrorHander = require("../utils/errorhandler");
+const { userModel } = require("../MODEL/signupSchema");
 
 const Authenticate = async (req, res, next) => {
   try {
     const token = req.cookies.jwtoken;
-    //    console.log(token);
+
+    if (!token) {
+      throw new Error("No token provided");
+    }
 
     const verifyToken = jwt.verify(token, process.env.SECRET_KEY);
     const rootUser = await userModel.findOne({
       _id: verifyToken._id,
       "tokens.token": token,
     });
+
     if (!rootUser) {
-      throw new Error("user not found");
+      throw new Error("User not found");
     }
+
     req.token = token;
     req.rootUser = rootUser;
     req.userID = rootUser._id;
+
     next();
   } catch (err) {
-    res.status(401).send("Unauthorized:no token provided");
-    console.log(err);
+    next(err);
   }
 };
+
 module.exports = Authenticate;
