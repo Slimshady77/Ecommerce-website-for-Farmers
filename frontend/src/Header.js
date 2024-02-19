@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import React, { useState } from "react";
 import { Cart } from "./Cart";
+import Search from "./Components/Product/Search";
 
 function Header() {
   const amount = useSelector((state) => state.amount);
@@ -42,6 +43,16 @@ function Header() {
                 to="/"
               >
                 Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                exact
+                activeClassName="active"
+                className="nav-link"
+                to="/products"
+              >
+                Products
               </NavLink>
             </li>
             <li className="nav-item">
@@ -90,23 +101,7 @@ function Header() {
               </NavLink>
             </li>
           </ul>
-          <form className="d-flex" role="search">
-            <input
-              className="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <li>
-              <button
-                className="btn btn-outline-success"
-                type="submit"
-                style={{ margin: 5 }}
-              >
-                Search
-              </button>
-            </li>
-          </form>
+          <Search />
           <div className="d-flex align-items-center">
             <img
               src="/images/cart.png"

@@ -285,8 +285,9 @@ router.route("/addProduct").post(upload.single("photo"), (req, res, next) => {
 });
 
 // get View add Product API/////////////////////////////////////////////////////////////////////////////
-const resultPerPage = 10;
 router.get("/getProData", async (req, res) => {
+  const resultPerPage = 10;
+
   try {
     const productCount = await product.countDocuments();
     const apiFeatures = new ApiFeatures(product.find(), req.query)
@@ -294,7 +295,7 @@ router.get("/getProData", async (req, res) => {
       .filter()
       .pagination(resultPerPage);
     const view = await apiFeatures.query;
-    res.status(201).json({ status: 201, view, productCount });
+    res.status(201).json({ status: 201, view, productCount, resultPerPage });
   } catch (error) {
     res.status(401).json({ status: 401, error: error.message }); // Assuming you want to send the error message
   }
@@ -333,6 +334,19 @@ router.get("/getUser", async (req, res, next) => {
     //   .json({ error: "An error occurred while fetching user data" });
     return next(new ErrorHander("Not found ", 404));
   }
+});
+
+router.post("/delete", (req, res) => {
+  let data = req.body.params;
+  userModel
+    .findByIdAndDelete(data)
+    .then(() => {
+      res.status(200).send({ message: "Item successfully deleted!" });
+    })
+    .catch((error) => {
+      console.error("Error deleting item:", error);
+      res.status(500).send({ message: "Internal server error" });
+    });
 });
 
 module.exports = router;

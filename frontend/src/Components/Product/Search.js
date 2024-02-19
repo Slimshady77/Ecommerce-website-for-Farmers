@@ -1,31 +1,32 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for programmatic navigation
+import { useNavigate } from "react-router-dom";
+import "./Search.css";
 
 const Search = () => {
   const [keyword, setKeyword] = useState("");
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const searchSubmitHandler = (e) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/getProData/${keyword}`); // Use navigate instead of history.push
+      navigate(`/products/${keyword}`);
     } else {
-      navigate("/getProData"); // Navigate to a default URL if keyword is empty
+      navigate("/products");
     }
   };
 
   return (
-    <>
-      <form onSubmit={searchSubmitHandler}>
+    <form onSubmit={searchSubmitHandler}>
+      <div className="searchBox">
         <input
           type="text"
           placeholder="Search a product..."
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
         />
-        <input type="submit" value="Search" />
-      </form>
-    </>
+        <input className="btn-search" type="submit" value="Search" />
+      </div>
+    </form>
   );
 };
 

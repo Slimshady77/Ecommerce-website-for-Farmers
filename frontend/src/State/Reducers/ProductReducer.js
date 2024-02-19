@@ -26,6 +26,7 @@ export const productReducer = (state = initialState, action) => {
         loading: false,
         products: action.payload.products,
         productCount: action.payload.productsCount,
+        resultPerPage: action.payload.resultPerPage,
         error: null,
       };
 
@@ -46,4 +47,3 @@ export const productReducer = (state = initialState, action) => {
       return state;
   }
 };
- 

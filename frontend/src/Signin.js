@@ -148,7 +148,7 @@ function Signin() {
           </form>
         </div>
         <div className="col-lg-4 mx-auto mt-5 ">
-          <img src="./images/img1.jpg" width="400px" height="300px" />
+          <img src="./images/2.jpg" width="400px" height="300px" />
         </div>
       </div>
     </div>

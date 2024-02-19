@@ -46,6 +46,7 @@ function App() {
             path="/productDetail/:productId"
             element={<ProductDetail />}
           ></Route>
+
           <Route path="/About" element={<About />}></Route>
 
           <Route path="/Gallery" element={<Gallery />}></Route>
@@ -96,7 +97,7 @@ function App() {
           <Route path="/Balance" element={<Balance />}></Route>
           <Route path="/products" element={<Products />}></Route>
           <Route path="/products/:keyword" element={<Products />}></Route>
-          <Route path="/search" element={<Search />}></Route>
+          {/* <Route path="/search" element={<Search />}></Route> */}
         </Routes>
       </BrowserRouter>
       {<Footer />}
